@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TableReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" isFloatColumnFooter="true">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Sans_Normal" isDefault="true" fontName="DejaVu Sans" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="Table">
+		<box>
+			<pen lineWidth="0.0" lineColor="#FF0000"/>
+		</box>
+	</style>
+	<style name="DetailCell">
+		<box>
+			<pen lineColor="#000000"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="TableHeader" mode="Opaque" backcolor="#808080">
+		<box>
+			<pen lineColor="#000000"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="TableFooter" mode="Opaque" backcolor="#C0C0C0"/>
+	<subDataset name="TableData">
+		<variable name="Column1" class="java.lang.String">
+			<variableExpression><![CDATA["multi\nline text"]]></variableExpression>
+		</variable>
+		<variable name="Column2" class="java.lang.String">
+			<variableExpression><![CDATA["text two"]]></variableExpression>
+		</variable>
+		<variable name="Column3" class="java.lang.String">
+			<variableExpression><![CDATA["text three"]]></variableExpression>
+		</variable>
+		<variable name="Column4" class="java.lang.String">
+			<variableExpression><![CDATA["text four"]]></variableExpression>
+		</variable>
+		<variable name="Column5" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column6" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column7" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column8" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column9" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column10" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column11" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column12" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column13" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column14" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column15" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column16" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column17" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+		<variable name="Column18" class="java.lang.String">
+			<variableExpression><![CDATA["12345"]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="TableDataSource" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<title>
+		<band height="150">
+			<componentElement>
+				<reportElement style="Table" x="0" y="50" width="555" height="100"/>
+				<c:table xmlns:c="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="TableData">
+						<dataSourceExpression><![CDATA[$P{TableDataSource}]]></dataSourceExpression>
+					</datasetRun>
+					<c:columnGroup width="1125">
+						<c:columnHeader style="TableHeader" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="1125" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[林权交易情况统计表]]></text>
+							</staticText>
+						</c:columnHeader>
+						<c:columnFooter height="30" rowSpan="1"/>
+						<c:column width="52">
+							<c:columnHeader style="TableHeader" height="90" rowSpan="2">
+								<staticText>
+									<reportElement x="0" y="0" width="50" height="90"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[序号]]></text>
+								</staticText>
+							</c:columnHeader>
+							<c:columnFooter height="90" rowSpan="2"/>
+							<c:detailCell style="DetailCell" height="30" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="50" height="30"/>
+									<textElement/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$V{Column1}]]></textFieldExpression>
+								</textField>
+							</c:detailCell>
+						</c:column>
+						<c:column width="90">
+							<c:columnHeader style="TableHeader" height="90" rowSpan="2">
+								<staticText>
+									<reportElement x="0" y="0" width="90" height="90"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[交易会员]]></text>
+								</staticText>
+							</c:columnHeader>
+							<c:columnFooter height="90" rowSpan="2"/>
+							<c:detailCell style="DetailCell" height="30" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="90" height="30"/>
+									<textElement/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$V{Column2}]]></textFieldExpression>
+								</textField>
+							</c:detailCell>
+						</c:column>
+						<c:columnGroup width="460">
+							<c:columnHeader style="TableHeader" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="460" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[标的物类型]]></text>
+								</staticText>
+							</c:columnHeader>
+							<c:columnFooter height="30" rowSpan="1"/>
+							<c:column width="68">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="68" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[合计宗数]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="68" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column3}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="71">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="71" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[林地]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="71" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column4}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="66">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="66" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[林地]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="66" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column5}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="66">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="66" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[林木]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="66" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column6}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="61">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="61" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[工程]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="61" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column7}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="62">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="62" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[债权]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="62" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column8}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="66">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="66" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[碳排放]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="66" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column9}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+						</c:columnGroup>
+						<c:columnGroup width="251">
+							<c:columnHeader style="TableHeader" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="251" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[转让方式]]></text>
+								</staticText>
+							</c:columnHeader>
+							<c:columnFooter height="30" rowSpan="1"/>
+							<c:column width="59">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="59" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[拍卖]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="59" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column10}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="67">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="67" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[招标]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="67" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column11}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="62">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="62" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[协议]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="62" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column12}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="63">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="63" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[网络报价]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="63" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column13}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+						</c:columnGroup>
+						<c:columnGroup width="221">
+							<c:columnHeader style="TableHeader" height="30" rowSpan="1">
+								<staticText>
+									<reportElement x="0" y="0" width="221" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[成交项目]]></text>
+								</staticText>
+							</c:columnHeader>
+							<c:columnFooter height="30" rowSpan="1"/>
+							<c:column width="50">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="50" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[合计宗数]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="50" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column14}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="56">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="56" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[起拍价]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="56" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column15}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="64">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="64" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[成交价]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="64" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column16}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+							<c:column width="51">
+								<c:columnHeader style="TableHeader" height="60" rowSpan="1">
+									<staticText>
+										<reportElement x="0" y="0" width="50" height="60"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle"/>
+										<text><![CDATA[增值率]]></text>
+									</staticText>
+								</c:columnHeader>
+								<c:columnFooter height="60" rowSpan="1"/>
+								<c:detailCell style="DetailCell" height="30" rowSpan="1">
+									<textField>
+										<reportElement x="0" y="0" width="50" height="30"/>
+										<textElement/>
+										<textFieldExpression class="java.lang.String"><![CDATA[$V{Column17}]]></textFieldExpression>
+									</textField>
+								</c:detailCell>
+							</c:column>
+						</c:columnGroup>
+						<c:column width="51">
+							<c:columnHeader style="TableHeader" height="90" rowSpan="2">
+								<staticText>
+									<reportElement x="0" y="0" width="50" height="90"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[流拍项目]]></text>
+								</staticText>
+							</c:columnHeader>
+							<c:columnFooter height="90" rowSpan="2"/>
+							<c:detailCell style="DetailCell" height="30" rowSpan="1">
+								<textField>
+									<reportElement x="0" y="0" width="50" height="30"/>
+									<textElement/>
+									<textFieldExpression class="java.lang.String"><![CDATA[$V{Column18}]]></textFieldExpression>
+								</textField>
+							</c:detailCell>
+						</c:column>
+					</c:columnGroup>
+				</c:table>
+			</componentElement>
+		</band>
+	</title>
+</jasperReport>

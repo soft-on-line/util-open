@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://dean.edwards.name/packer/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title>/packer/</title>
+ <meta name="author" content="Dean Edwards"><!-- Keeping code tidy! :) -->
+ <link rel="stylesheet" href="http://deanedwardsoffline.appspot.com/css/style.css" media="all">
+ <link rel="icon" href="http://dean.edwards.name/favicon.ico" type="image/x-icon">
+ <script src="./packer_files/my.js"></script>
+ <!--[if lt IE 9]><script>"abbr,article,footer,header,nav,section,time".replace(/\w+/g,function(t){document.createElement(t)})</script><![endif]-->
+ <meta name="description" content="A Javascript compressor.">
+ <meta name="keywords" content="packer,javascript,compressor,obfuscator">
+ <link rel="stylesheet" href="http://dean.edwards.name/packer/packer.css" media="screen, projection">
+ <script src="./packer_files/base2-load.js"></script>
+ <script src="./packer_files/Packer.js"></script>
+ <script src="./packer_files/Words.js"></script>
+ <script src="./packer_files/bindings.js"></script>
+</head>
+<body>
+<header>
+ <h1 class="home"><a href="http://dean.edwards.name/">dean.edwards.name</a>/packer/</h1>
+ <nav>
+  <ul><!--
+--><li><a href="http://dean.edwards.name/my/">my</a></li><!--
+--><li><a href="http://dean.edwards.name/weblog/">weblog</a></li><!--
+--><li><a href="http://dean.edwards.name/about/">about</a></li><!--
+--><li><a href="http://dean.edwards.name/contact/">contact</a></li><!--
+--><li class="last-child"><a href="http://dean.edwards.name/search/">search</a></li><!--
+--></ul>
+ </nav>
+</header>
+
+<h2><span class="description">A JavaScript Compressor.</span> <span class="version">version 3.0</span></h2>
+<hr class="short">
+<form class="" id="form" action="" method="post">
+ <p id="help"><a href="http://dean.edwards.name/packer/usage/">Help</a></p>
+ <p><label class="paste">Paste:</label><br>
+  <textarea id="input" name="input" rows="10" cols="80"></textarea></p>
+ <p id="controls">
+  <label for="base62">Base62 encode
+   <input type="checkbox" id="base62" name="base62" value="1"></label><br>
+  <label for="shrink">Shrink variables
+   <input type="checkbox" id="shrink" name="shrink" value="1"></label>
+ </p>
+ <p class="form-buttons" id="input-buttons">
+  <input type="file" id="upload-script" name="upload" disabled="">
+  <button type="button" id="load-script">Load</button>
+  <button type="button" id="clear-all">Clear</button>
+  <button type="button" id="pack-script">Pack</button>
+ </p>
+ <p><label class="copy">Copy:</label>
+  <textarea id="output" name="output" rows="10" cols="80" readonly=""></textarea></p>
+ <p id="message" class="">compression ratio: 1784/3450=0.517</p>
+ <p class="form-buttons" id="output-buttons">
+  <button type="submit" id="save-script">Save</button>
+  <button type="button" id="decode-script">Decode</button>
+ </p>
+</form>
+<p>Also available as <a href="http://dean.edwards.name/download/#packer">.NET, perl and <abbr>PHP</abbr></a> applications.</p>
+ 
+<footer>
+ <p>Copyright © 2004-2010 Dean Edwards. All rights reserved.</p>
+</footer>
+
+
+</body></html>
