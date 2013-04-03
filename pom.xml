@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.open</groupId>
+  <artifactId>open-util</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>open-util Maven Project</name>
+  <url>http://maven.apache.org</url>
+  <!--
+  <repositories>
+		<repository>
+			<url>http://www.soft-on-line.com/maven</url>
+		</repository>
+  </repositories>
+  -->
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>open-util</finalName>
+    <plugins>
+		  <plugin>
+		      <artifactId>maven-compiler-plugin</artifactId>
+		      <configuration>
+		          <source>1.6</source>
+			   			<encoding>UTF-8</encoding>
+		          <target>1.6</target>
+		      </configuration>
+		  </plugin>
+		  <plugin>  
+          <artifactId>maven-source-plugin</artifactId>  
+          <version>2.1</version>  
+          <configuration>  
+              <attach>true</attach>  
+          </configuration>  
+          <executions>  
+              <execution>  
+                  <phase>compile</phase>  
+                  <goals>  
+                      <goal>jar</goal>  
+                  </goals>  
+              </execution>  
+          </executions>  
+      </plugin>  
+	  </plugins>
+  </build>
+  <modules>
+    <module>util-snippet</module>
+    <module>util-webapp</module>
+    <module>util-open</module>
+    <module>util-crawler</module>
+    <module>util-chinese</module>
+    <module>util-hibernate</module>
+    <module>util-lucene</module>
+    <module>util-mining</module>
+    <module>util-pinyin4j</module>
+  </modules>
+  <properties>
+		
+  </properties>
+</project>
