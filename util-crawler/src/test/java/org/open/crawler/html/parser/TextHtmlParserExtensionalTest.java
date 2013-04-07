@@ -1,7 +1,5 @@
 package org.open.crawler.html.parser;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.open.util.ReaderUtil;
 

@@ -12,6 +12,7 @@ import info.monitorenter.cpdetector.io.JChardetFacade;
  * @author peng
  *
  */
+@SuppressWarnings("deprecation")
 public class CharCodeUtil {
 
 	static CodepageDetectorProxy detector = CodepageDetectorProxy.getInstance();

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.htmlcleaner.HtmlCleaner;
@@ -399,7 +398,6 @@ public class HtmlDataUtil
 	 * @return
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public static String cuteAllTagsExceptInput(String html, String[] exceptionTags)
 	{
 		String[] allTags = getAllTags(html);

@@ -131,7 +131,7 @@ public class MysqlMining implements Mining
 			statement = connection.createStatement();
 	        rs = statement.executeQuery(sql);
 	        
-	        List list = new ArrayList();
+	        List<T> list = new ArrayList<T>();
 	        while(rs.next())
 	        {
 	        	T bean = clazz.newInstance();
@@ -149,7 +149,7 @@ public class MysqlMining implements Mining
 	        return list;
 		}catch(Exception e){
 			log.error("MysqlMining query("+sql+") error!", e);
-			return new ArrayList();
+			return new ArrayList<T>();
 		}finally{
 			try {
 				if(rs!=null){
@@ -216,7 +216,7 @@ public class MysqlMining implements Mining
 				ps.setString(i, parameters[i-1]);
 			}
 			
-			List list = new ArrayList();
+			List<T> list = new ArrayList<T>();
 			rs = ps.executeQuery();
 			while(rs.next())
 			{
@@ -235,7 +235,7 @@ public class MysqlMining implements Mining
 			return list;
 		}catch(Exception e){
 			log.error("MysqlMining query("+sql+") error!", e);
-			return new ArrayList();
+			return new ArrayList<T>();
 		}finally{
 			try {
 				if(rs!=null){

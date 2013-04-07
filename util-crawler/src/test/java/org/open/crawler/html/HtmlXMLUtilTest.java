@@ -13,7 +13,7 @@ import junit.framework.TestCase;
 
 public class HtmlXMLUtilTest extends TestCase {
     private static final Log log = LogFactory.getLog(HtmlXMLUtilTest.class);
-    private DebugUtil du = new DebugUtil(DebugUtil.InstanceModel.ConsoleModel);
+    DebugUtil du = new DebugUtil(DebugUtil.InstanceModel.ConsoleModel);
     
     public void testGetAllImage(){
         log.info(HtmlXMLUtil.getAllImage(ReaderUtil.read("d:/test_parse_img.html")));

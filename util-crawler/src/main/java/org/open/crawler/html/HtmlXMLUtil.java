@@ -875,6 +875,7 @@ public class HtmlXMLUtil {
      * @param nodeTag 结点标签
      * @return
      */
+    @SuppressWarnings("unchecked")
     public List<Element> getElementsByTag(Element root, String nodeTag) {
         String xpath = "//" + nodeTag;
         return root.selectNodes(xpath);
@@ -912,6 +913,7 @@ public class HtmlXMLUtil {
      * @param attributeValue
      * @return
      */
+    @SuppressWarnings("unchecked")
     public List<Element> getElementsByAttribute(Element root, String attribute, String attributeValue) {
         String xpath = "//*[@" + attribute + "='" + attributeValue + "']";
         return root.selectNodes(xpath);
@@ -926,6 +928,7 @@ public class HtmlXMLUtil {
      * @param attributeValue
      * @return
      */
+    @SuppressWarnings("unchecked")
     public List<Element> getElementsByAttribute(Element root, String nodeTag, String attribute, String attributeValue) {
         String xpath = "//" + nodeTag + "[@" + attribute + "='" + attributeValue + "']";
         return root.selectNodes(xpath);

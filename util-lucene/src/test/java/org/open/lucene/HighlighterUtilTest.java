@@ -1,16 +1,11 @@
 package org.open.lucene;
 
+import junit.framework.TestCase;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.cn.ChineseAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.search.highlight.Formatter;
-import org.apache.lucene.search.highlight.Highlighter;
-import org.apache.lucene.search.highlight.SimpleFragmenter;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
-import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
-import org.apache.lucene.util.Version;
-
-import junit.framework.TestCase;
 
 public class HighlighterUtilTest extends TestCase {
 

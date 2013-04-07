@@ -52,6 +52,7 @@ public class HighlighterUtil {
                     new SimpleHTMLFormatter("<font color='red'>", "</font>"));
     }
 
+    @SuppressWarnings("resource")
     public static String wrap(String keyword, String content, Integer fragmentSize, int maxNumFragmentsRequired,
                               String fragmentSeparator, Analyzer analyzer, Formatter formatter) {
         long st = new Date().getTime();

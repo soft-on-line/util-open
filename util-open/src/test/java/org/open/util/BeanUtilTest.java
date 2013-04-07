@@ -28,7 +28,7 @@ public class BeanUtilTest {
         du.print(BeanUtils.getProperty(new InnerObject(), "testString"));
 
 //         du.print("getArrayProperty=>"+BeanUtils.getArrayProperty(listInnerObject, "testString"));
-        du.print(BeanUtil.getProperty(listInnerObject, "testString"));
+//        du.print(BeanUtil.getProperty(listInnerObject, "testString"));
     }
 
 }

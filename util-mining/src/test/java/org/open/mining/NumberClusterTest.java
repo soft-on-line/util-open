@@ -1,13 +1,9 @@
 package org.open.mining;
 
-import java.util.ArrayList;
-import java.util.List;
+import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.open.util.MathUtil;
 import org.open.util.debug.DebugUtil;
-
-import junit.framework.TestCase;
 
 public class NumberClusterTest extends TestCase {
 
@@ -30,30 +26,30 @@ public class NumberClusterTest extends TestCase {
 
         // List<Double> src = new ArrayList<Double>();
         // double average = MathUtil.average(src1);
-        // for(Double each : src1){
-        // if(each>average){
-        // src.add(each);
-        // }
-        // }
+		// for(Double each : src1){
+		// if(each>average){
+		// src.add(each);
+		// }
+		// }
 
-//        for (int i = 0; i < src.length; i++) {
-//            if (src[i] >= 0) {
-//                src[i] = Math.pow(src[i], 1.0 / 5);
-//            } else {
-//                src[i] = -Math.pow(Math.abs(src[i]), 1.0 / 5);
-//            }
-//        }
+		//        for (int i = 0; i < src.length; i++) {
+		//            if (src[i] >= 0) {
+		//                src[i] = Math.pow(src[i], 1.0 / 5);
+		//            } else {
+		//                src[i] = -Math.pow(Math.abs(src[i]), 1.0 / 5);
+		//            }
+		//        }
 
-        // double max = src[src.length-1];
-        // for (int i = 0; i < src.length; i++) {
-        // src[i] /= max;
-        // }
+		// double max = src[src.length-1];
+		// for (int i = 0; i < src.length; i++) {
+		// src[i] /= max;
+		// }
 
-        // du.print(src);
+		// du.print(src);
 
-        NumberCluster numberCluster = new NumberCluster(src);
+		NumberCluster numberCluster = new NumberCluster(src);
 
-        du.print(numberCluster.getCluster());
-        // du.print(numberCluster.getCluster()[2][0]);
-    }
+		du.print(numberCluster.getCluster());
+		// du.print(numberCluster.getCluster()[2][0]);
+	}
 }

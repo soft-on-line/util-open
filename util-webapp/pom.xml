@@ -1,32 +1,44 @@
-<?xml version="1.0"?><project>
-  <parent>
-    <artifactId>open-util</artifactId>
-    <groupId>org.open</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.open.webapp</groupId>
-  <artifactId>util-webapp</artifactId>
-  <packaging>war</packaging>
-  <name>util-webapp Maven Webapp</name>
-  <version>1.0-SNAPSHOT</version>
-  <url>http://maven.apache.org</url>
-  <build>
-    <finalName>util-webapp</finalName>
-  </build>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-	  <artifactId>struts2-core</artifactId>
-      <version>${struts2.version}</version>
-    </dependency>
-    <dependency>
+<?xml version="1.0"?>
+<project>
+	<parent>
+		<artifactId>open-util</artifactId>
+		<groupId>org.open</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.open.webapp</groupId>
+	<artifactId>util-webapp</artifactId>
+	<packaging>war</packaging>
+	<name>util-webapp Maven Webapp</name>
+	<version>1.0-SNAPSHOT</version>
+	<url>http://maven.apache.org</url>
+	<build>
+		<finalName>util-webapp</finalName>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>5.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.lowagie</groupId>
+					<artifactId>itext</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>${struts2.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-codebehind-plugin</artifactId>
 			<version>${struts2.version}</version>
@@ -54,8 +66,8 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-  </dependencies>
-  <properties>
-  	<struts2.version>2.1.2</struts2.version>
-  </properties>
+	</dependencies>
+	<properties>
+		<struts2.version>2.1.2</struts2.version>
+	</properties>
 </project>

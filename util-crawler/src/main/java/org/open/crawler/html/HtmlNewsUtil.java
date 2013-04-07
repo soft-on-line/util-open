@@ -183,7 +183,7 @@ public class HtmlNewsUtil extends org.open.util.debug.Test {
      * @param args
      */
     public static void main(String[] args) {
-        List<String> list = new ArrayList();
+        List<String> list = new ArrayList<String>();
         // list.add("http://finance.eastmoney.com/100127,1292947.html");
         // list.add("http://www.shaoxing.com.cn/news/content/2010-04/01/content_479485.htm");
         list.add("http://gongyi.qq.com/a/20100430/000037.htm");
@@ -198,7 +198,7 @@ public class HtmlNewsUtil extends org.open.util.debug.Test {
                 e.printStackTrace();
             }
             // browser.getHTML();
-            String html = browser.getHTML();
+//            String html = browser.getHTML();
             // log.info(browser.getCharSet());
             log.info(HtmlNewsUtil.getNews(browser.getHTML(), url));
         }

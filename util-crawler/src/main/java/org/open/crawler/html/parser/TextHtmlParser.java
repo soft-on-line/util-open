@@ -147,6 +147,7 @@ public class TextHtmlParser extends HtmlParser {
             //
             // log.debug("averageWeight=>" + averageWeight);
 
+            @SuppressWarnings("unchecked")
             List<Double> listWeight = BeanUtil.getProperty(filtedGeneralNodeScore, "weight");
 
             log.debug("listWeight=>" + listWeight);

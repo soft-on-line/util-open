@@ -358,6 +358,7 @@ public class ChineseUtil {
      * @param word 需要压入的词
      * @param isRemoveStopWord true开启去掉停词功能；false反之。
      */
+    @SuppressWarnings("incomplete-switch")
     private void pushWord(List<Chinese> lib, String word, boolean isRemoveStopWord, Collection<Chinese.Character> filter) {
         word = word.trim();
 
