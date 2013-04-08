@@ -1,5 +1,7 @@
 package org.open.crawler.httpclient;
 
+import java.io.IOException;
+
 import junit.framework.TestCase;
 
 import org.junit.Test;
@@ -30,7 +32,7 @@ public class BrowserTest extends TestCase {
         Thread.sleep(5 * 1000);
     }
 
-    private static String[] getNames() {
+    private static String[] getNames() throws IOException {
         String content = ReaderUtil.read("c:/name.txt", "gbk");
         return RegexpUtil.matchGroups(content, "'(.*?)'");
     }
@@ -42,7 +44,7 @@ public class BrowserTest extends TestCase {
     }
 
     // @Test
-    public static void testName() {
+    public static void testName() throws IOException {
         StringBuffer result = new StringBuffer();
         String[] name = getNames();
         for (int i = 0; i < name.length; i++) {

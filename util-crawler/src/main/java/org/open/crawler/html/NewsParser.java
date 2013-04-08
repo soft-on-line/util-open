@@ -32,7 +32,7 @@ import org.xml.sax.SAXException;
  * @version $Id:$
  */
 
-public class NewsParser extends org.open.util.debug.Test {
+public class NewsParser {
 
 	private static final Log      log                            = LogFactory.getLog(NewsParser.class);
 	private List<Node>            textNodeList                   = new ArrayList<Node>();
@@ -578,32 +578,32 @@ public class NewsParser extends org.open.util.debug.Test {
 		return node;
 	}
 
-//	/**
-//	 * 获取结点下所有文本内容
-//	 * @param root
-//	 * @return
-//	 */
-//	private String _getText(Node root) {
-//		// 若是文本节点的话，直接返回
-//		if (root.getNodeType() == Node.TEXT_NODE) {
-//			return root.getNodeValue().trim();
-//		}
-//		if (root.getNodeType() == Node.ELEMENT_NODE) {
-//			Element elmt = (Element) root;
-//			// 抛弃脚本
-//			if (elmt.getTagName().equals("STYLE") || elmt.getTagName().equals("SCRIPT"))
-//				return "";
-//
-//			NodeList children = elmt.getChildNodes();
-//			StringBuilder text = new StringBuilder();
-//			for (int i = 0; i < children.getLength(); i++) {
-//				text.append(_getText(children.item(i)));
-//			}
-//			return text.toString();
-//		}
-//		// 对其它类型的节点，返回空值
-//		return "";
-//	}
+	//	/**
+	//	 * 获取结点下所有文本内容
+	//	 * @param root
+	//	 * @return
+	//	 */
+	//	private String _getText(Node root) {
+	//		// 若是文本节点的话，直接返回
+	//		if (root.getNodeType() == Node.TEXT_NODE) {
+	//			return root.getNodeValue().trim();
+	//		}
+	//		if (root.getNodeType() == Node.ELEMENT_NODE) {
+	//			Element elmt = (Element) root;
+	//			// 抛弃脚本
+	//			if (elmt.getTagName().equals("STYLE") || elmt.getTagName().equals("SCRIPT"))
+	//				return "";
+	//
+	//			NodeList children = elmt.getChildNodes();
+	//			StringBuilder text = new StringBuilder();
+	//			for (int i = 0; i < children.getLength(); i++) {
+	//				text.append(_getText(children.item(i)));
+	//			}
+	//			return text.toString();
+	//		}
+	//		// 对其它类型的节点，返回空值
+	//		return "";
+	//	}
 
 	private String _tidy(String html) {
 		html = html.replaceAll("<!--.*?-->", "");

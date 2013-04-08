@@ -10,8 +10,6 @@ import org.open.util.debug.DebugUtil;
 
 public class BeanUtilTest {
 
-    private static DebugUtil du = new DebugUtil(DebugUtil.InstanceModel.ConsoleModel);
-
     @Test
     public void testGetAttribute() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         List<InnerObject> listInnerObject = new ArrayList<InnerObject>();
@@ -19,16 +17,16 @@ public class BeanUtilTest {
             listInnerObject.add(new InnerObject());
         }
 
-        du.print(new InnerObject().getTestString());
-        du.print(BeanUtils.getNestedProperty(new InnerObject(), "testString"));
-//        du.print(BeanUtils.getIndexedProperty(new InnerObject(), "testString"));
-        du.print(BeanUtils.getSimpleProperty(new InnerObject(), "testString"));
-//        du.print(DataUtil.join(listInnerObject,"id",","));
-//        du.print(BeanUtils.getProperty(new InnerObject(), "id"));
-        du.print(BeanUtils.getProperty(new InnerObject(), "testString"));
+        DebugUtil.print(new InnerObject().getTestString());
+        DebugUtil.print(BeanUtils.getNestedProperty(new InnerObject(), "testString"));
+//        DebugUtil.print(BeanUtils.getIndexedProperty(new InnerObject(), "testString"));
+        DebugUtil.print(BeanUtils.getSimpleProperty(new InnerObject(), "testString"));
+//        DebugUtil.print(DataUtil.join(listInnerObject,"id",","));
+//        DebugUtil.print(BeanUtils.getProperty(new InnerObject(), "id"));
+        DebugUtil.print(BeanUtils.getProperty(new InnerObject(), "testString"));
 
-//         du.print("getArrayProperty=>"+BeanUtils.getArrayProperty(listInnerObject, "testString"));
-//        du.print(BeanUtil.getProperty(listInnerObject, "testString"));
+//         DebugUtil.print("getArrayProperty=>"+BeanUtils.getArrayProperty(listInnerObject, "testString"));
+//        DebugUtil.print(BeanUtil.getProperty(listInnerObject, "testString"));
     }
 
 }

@@ -31,7 +31,6 @@ import org.open.util.debug.DebugUtil;
 public class TestJDK {
 
 	private static final Log log = LogFactory.getLog(TestJDK.class);
-	private static DebugUtil du  = new DebugUtil(DebugUtil.InstanceModel.ConsoleModel);
 
 	// @TestAnnotation(name = "moon", age = "10")
 	// public void testAnnotation_() {
@@ -190,7 +189,7 @@ public class TestJDK {
 
 		String content = "<a href=\"\" style=\"text-decoration:none;\"  target=\"_blank\" >";
 		content = content.replaceAll("(style=\".+\")", "");
-		du.print("Content:" + content);
+		DebugUtil.print("Content:" + content);
 	}
 
 	public static void test2() {
@@ -274,41 +273,41 @@ public class TestJDK {
 
 	// @Test
 	public strictfp static void testFloat() {
-		du.print(0.0f / (1 * -0.5));
-		du.print(Math.abs(0.0f / (1 * -0.5)));
+		DebugUtil.print(0.0f / (1 * -0.5));
+		DebugUtil.print(Math.abs(0.0f / (1 * -0.5)));
 
-		du.print(Float.valueOf((0.045f - 0.031f) * 100).intValue());
-		du.print((char) 254);
+		DebugUtil.print(Float.valueOf((0.045f - 0.031f) * 100).intValue());
+		DebugUtil.print((char) 254);
 
-		du.print(Float.valueOf(0.05f).compareTo(0.04f));
-		du.print(Float.compare(0.05f, 0.04f));
+		DebugUtil.print(Float.valueOf(0.05f).compareTo(0.04f));
+		DebugUtil.print(Float.compare(0.05f, 0.04f));
 
 		double a = 0.5;
 
 		Number a_ = a;
-		du.print(a_.getClass().isInstance(Double.class));
-		du.print(a_ instanceof Double);
+		DebugUtil.print(a_.getClass().isInstance(Double.class));
+		DebugUtil.print(a_ instanceof Double);
 
 		Double b = new Double(0.7f);
-		du.print(b.getClass().isInstance(Double.class));
+		DebugUtil.print(b.getClass().isInstance(Double.class));
 
 		Number c = 5;
 
-		du.print(c.doubleValue());
+		DebugUtil.print(c.doubleValue());
 
-		du.print(Math.sqrt(64));
-		du.print(Math.pow(64, 0.5));
+		DebugUtil.print(Math.sqrt(64));
+		DebugUtil.print(Math.pow(64, 0.5));
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void testMap() {
 
-		du.printMemoryInfo();
+		DebugUtil.printMemoryInfo();
 		String[] data = new String[100000];
 		for (int i = 0; i < data.length; i++) {
 			data[i] = String.valueOf(i);
 		}
-		du.printMemoryInfo();
+		DebugUtil.printMemoryInfo();
 
 		HashMap<Integer, Object> hashMap = new HashMap<Integer, Object>();
 		hashMap.put(null, "test");
@@ -316,21 +315,21 @@ public class TestJDK {
 			// hashMap.put(i, data[i]);
 			hashMap.put(i, data[i].intern());
 		}
-		du.printMemoryInfo();
+		DebugUtil.printMemoryInfo();
 
 		HashMap<Integer, Object> hashMap1 = new HashMap<Integer, Object>();
 		for (int i = 0; i < data.length; i++) {
 			// hashMap1.put(i, data[i]);
 			hashMap1.put(i, data[i].intern());
 		}
-		du.printMemoryInfo();
+		DebugUtil.printMemoryInfo();
 
 		HashMap<Integer, Object> hashMap2 = new HashMap<Integer, Object>();
 		for (int i = 0; i < data.length; i++) {
 			// hashMap2.put(i, data[i]);
 			hashMap2.put(i, data[i].intern());
 		}
-		du.printMemoryInfo();
+		DebugUtil.printMemoryInfo();
 
 		Object a = new Object();
 		Object b = new Object();
@@ -343,13 +342,13 @@ public class TestJDK {
 		hashMap4.put(a, a);
 		hashMap4.put(b, b);
 
-		du.print(hashMap4.get(a).equals(hashMap3.get(a)));
+		DebugUtil.print(hashMap4.get(a).equals(hashMap3.get(a)));
 	}
 
 	public static void testCharSet() {
-		du.print(Charset.isSupported("void"));
-		du.print(Charset.isSupported("gbk"));
-		du.print(Charset.isSupported("GBK"));
+		DebugUtil.print(Charset.isSupported("void"));
+		DebugUtil.print(Charset.isSupported("gbk"));
+		DebugUtil.print(Charset.isSupported("GBK"));
 	}
 
 	public static void testSwitch() {
@@ -428,12 +427,12 @@ public class TestJDK {
 	}
 
 	public static void testUUID() {
-		// du.print(UUID.fromString("moon"));
-		// du.print(UUID.fromString("moon"));
-		// du.print(UUID.randomUUID().getLeastSignificantBits());
-		// du.print(UUID.randomUUID().timestamp());
-		du.print(new Random().nextInt());
-		du.print(RandomUtil.nextInt(10, 99));
+		// DebugUtil.print(UUID.fromString("moon"));
+		// DebugUtil.print(UUID.fromString("moon"));
+		// DebugUtil.print(UUID.randomUUID().getLeastSignificantBits());
+		// DebugUtil.print(UUID.randomUUID().timestamp());
+		DebugUtil.print(new Random().nextInt());
+		DebugUtil.print(RandomUtil.nextInt(10, 99));
 	}
 
 	@SuppressWarnings("unused")

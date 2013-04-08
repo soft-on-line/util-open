@@ -1,16 +1,14 @@
 package org.open.net.ip.qqwry;
 
 
+import junit.framework.TestCase;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.open.util.debug.DebugUtil;
-
-import junit.framework.TestCase;
 
 public class IPSeekerTest extends TestCase {
 
 	private static final Log log      = LogFactory.getLog(IPSeekerTest.class);
-	DebugUtil                du       = new DebugUtil(DebugUtil.InstanceModel.ConsoleModel);
 	private IPSeeker         ipSeeker = IPSeeker.instance;
 
 	public void testGetIPEntriesDebug() {

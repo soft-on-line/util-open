@@ -1,6 +1,8 @@
 package org.open.util;
 
 
+import java.io.IOException;
+
 import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
@@ -11,22 +13,21 @@ import org.open.util.debug.DebugUtil;
 public class RegexpUtilTest extends TestCase {
 
 	protected static final Log log = LogFactory.getLog(RegexpUtilTest.class);
-	DebugUtil                  du  = new DebugUtil(DebugUtil.InstanceModel.ConsoleModel);
 
 	public void testMatchGroup() {
-		du.print(RegexpUtil.matchGroup("abc123cde456", "(\\d+)"));
+		DebugUtil.print(RegexpUtil.matchGroup("abc123cde456", "(\\d+)"));
 	}
 
 	public void testMatchGroups() {
-		du.print(RegexpUtil.matchGroups("abc123cde456", "(\\d*)"));
+		DebugUtil.print(RegexpUtil.matchGroups("abc123cde456", "(\\d*)"));
 	}
 
 	public void testMatchMultiGroup() {
-		du.print(RegexpUtil.matchMultiGroup("abc123cde456", "(\\w*)(\\d*)"));
+		DebugUtil.print(RegexpUtil.matchMultiGroup("abc123cde456", "(\\w*)(\\d*)"));
 	}
 
 	public void testMatchMultiGroups() {
-		du.print(RegexpUtil.matchMultiGroups("abc123cde456", "(\\w*)(\\d*)"));
+		DebugUtil.print(RegexpUtil.matchMultiGroups("abc123cde456", "(\\w*)(\\d*)"));
 	}
 
 	public void testIsMatch() {
@@ -64,7 +65,7 @@ public class RegexpUtilTest extends TestCase {
 		System.out.println(url);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		String str = ReaderUtil.read("c:/11.txt", "gbk");
 		String[] dd = RegexpUtil.matchGroups(str, "<a.*?>(.+?)</a>");
 		int count = 0;

@@ -1,5 +1,7 @@
 package org.open.pinyin4j;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.open.util.ReaderUtil;
 import org.open.util.StringUtil;
@@ -32,7 +34,7 @@ public class Pinyin4jUtilTest extends TestCase {
     }
 
     @Test
-    public void test() {
+    public void test() throws IOException {
         String data = ReaderUtil.read("d:/人名.txt", "gbk");
         String[] name = data.split("\\s");
         StringBuffer buf = new StringBuffer();

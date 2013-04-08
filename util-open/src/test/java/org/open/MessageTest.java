@@ -6,8 +6,6 @@ import org.open.util.debug.DebugUtil;
 
 public class MessageTest {
 
-	DebugUtil du = new DebugUtil(DebugUtil.InstanceModel.ConsoleModel);
-
 	@Test
 	public void testInString() {
 		Message.instance.in("test");
@@ -25,17 +23,17 @@ public class MessageTest {
 
 	@Test
 	public void testOutInt() {
-		du.print(Message.instance.out(10));
-		du.print(Message.instance.out(10));
+		DebugUtil.print(Message.instance.out(10));
+		DebugUtil.print(Message.instance.out(10));
 	}
 
 	@Test
 	public void testOutStringInt() {
-		du.print(Message.instance.out("a", 10));
-		du.print(Message.instance.out("a", 10));
+		DebugUtil.print(Message.instance.out("a", 10));
+		DebugUtil.print(Message.instance.out("a", 10));
 
-		du.print(Message.instance.out("b", 10));
-		du.print(Message.instance.out("b", 10));
+		DebugUtil.print(Message.instance.out("b", 10));
+		DebugUtil.print(Message.instance.out("b", 10));
 	}
 
 }

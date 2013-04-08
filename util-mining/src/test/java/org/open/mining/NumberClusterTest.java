@@ -7,8 +7,6 @@ import org.open.util.debug.DebugUtil;
 
 public class NumberClusterTest extends TestCase {
 
-    DebugUtil du = new DebugUtil(DebugUtil.InstanceModel.ConsoleModel);
-
     @Test
     public strictfp void testNumberCluster() {
 //         Integer[] src = { -1, 199, 198, 45, 65, 0, -8, -9 };
@@ -49,7 +47,7 @@ public class NumberClusterTest extends TestCase {
 
 		NumberCluster numberCluster = new NumberCluster(src);
 
-		du.print(numberCluster.getCluster());
+		DebugUtil.print(numberCluster.getCluster());
 		// du.print(numberCluster.getCluster()[2][0]);
 	}
 }

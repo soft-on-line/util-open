@@ -1,6 +1,7 @@
 package org.open.tools;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 
 import org.open.util.CodeUtil;
@@ -12,7 +13,7 @@ public class BatchGenerateSerialVersionUID {
 
     private static String SerialVersionUID_TEMPLATE = "\t/**\r\n\t * generate by www.soft-on-line.com {0}\r\n\t */\r\n\tprivate static final long serialVersionUID = {1}L;";
 
-    public static void addSerialVersionUID(String file) {
+    public static void addSerialVersionUID(String file) throws IOException {
 
         if (-1 == file.lastIndexOf(".java")) {
             return;
@@ -30,7 +31,7 @@ public class BatchGenerateSerialVersionUID {
         }
     }
     
-    public static void addSerialVersionUID(File file)
+    public static void addSerialVersionUID(File file) throws IOException
     {
         if(file.isFile()){
             addSerialVersionUID(file.toString());
@@ -44,8 +45,9 @@ public class BatchGenerateSerialVersionUID {
 
     /**
      * @param args
+     * @throws IOException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         addSerialVersionUID(new File("D:/workspace/eclipse/Moon/logodict/src/main/java/com/logodict/hibernate3/dao"));
         

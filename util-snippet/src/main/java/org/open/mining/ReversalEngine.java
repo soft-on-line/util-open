@@ -2,6 +2,7 @@ package org.open.mining;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 import org.apache.commons.logging.Log;
@@ -93,7 +94,14 @@ public class ReversalEngine {
 	}
 
 	public int studyFromFile(String file) {
-		return studyFromText(ReaderUtil.read(file));
+		try {
+			return studyFromText(ReaderUtil.read(file));
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 	public int studyFromFile(File filePath) {
