@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
 
@@ -28,173 +26,105 @@ import org.apache.tools.zip.ZipOutputStream;
  */
 public class FileUtil {
 
-	protected final static Log              log           = LogFactory.getLog(FileUtil.class);
-
-	public final static Map<String, String> FILE_TYPE_MAP = new HashMap<String, String>();
-
 	/**
 	 * 文件类型枚举定义
 	 */
 	public static enum FileType {
 
-		/**
-		 * JPEG "jpg", "FFD8FF"
-		 */
+		/** JPEG "jpg", "FFD8FF" */
 		JPG("jpg", "FFD8FF"),
 
-		/**
-		 * PNG("png", "89504E47")
-		 */
+		/** PNG("png", "89504E47") */
 		PNG("png", "89504E47"),
 
-		/**
-		 * "gif", "47494638"
-		 */
+		/** "gif", "47494638" */
 		GIF("gif", "47494638"),
 
-		/**
-		 * "tif", "49492A00"
-		 */
+		/** "tif", "49492A00" */
 		TIF("tif", "49492A00"),
 
-		/**
-		 * Windows Bitmap "bmp", "424D"
-		 */
+		/** Windows Bitmap "bmp", "424D" */
 		BMP("bmp", "424D"),
 
-		/**
-		 * CAD "dwg", "41433130"
-		 */
+		/** CAD "dwg", "41433130" */
 		DWG("dwg", "41433130"),
 
-		/**
-		 * "html", "68746D6C3E"
-		 */
+		/** "html", "68746D6C3E" */
 		HTML("html", "68746D6C3E"),
 
-		/**
-		 * Rich Text Format "rtf", "7B5C727466"
-		 */
+		/** Rich Text Format "rtf", "7B5C727466" */
 		RTF("rtf", "7B5C727466"),
 
-		/**
-		 * "xml", "3C3F786D6C"
-		 */
+		/** "xml", "3C3F786D6C" */
 		XML("xml", "3C3F786D6C"),
 
-		/**
-		 * "zip", "504B0304"
-		 */
+		/** "zip", "504B0304" */
 		ZIP("zip", "504B0304"),
 
-		/**
-		 * "rar", "52617221"
-		 */
+		/** "rar", "52617221" */
 		RAR("rar", "52617221"),
 
-		/**
-		 * Photoshop "psd", "38425053"
-		 */
+		/** Photoshop "psd", "38425053" */
 		PSD("psd", "38425053"),
 
-		/**
-		 * Email [thorough only] "eml", "44656C69766572792D646174653A"
-		 */
+		/** Email [thorough only] "eml", "44656C69766572792D646174653A" */
 		EML("eml", "44656C69766572792D646174653A"),
 
-		/**
-		 * Outlook Express "dbx", "CFAD12FEC5FD746F"
-		 */
+		/** Outlook Express "dbx", "CFAD12FEC5FD746F" */
 		DBX("dbx", "CFAD12FEC5FD746F"),
 
-		/**
-		 * Outlook "pst", "2142444E"
-		 */
+		/** Outlook "pst", "2142444E" */
 		PST("pst", "2142444E"),
 
-		/**
-		 * MS Excel "xls", "D0CF11E0" MS Excel 注意：word 和 excel的文件头一样
-		 */
+		/** MS Excel "xls", "D0CF11E0" MS Excel 注意：word 和 excel的文件头一样 */
 		XLS("xls", "D0CF11E0"),
 
-		/**
-		 * MS Word "doc", "D0CF11E0" MS Word 注意：word 和 excel的文件头一样
-		 */
+		/** MS Word "doc", "D0CF11E0" MS Word 注意：word 和 excel的文件头一样 */
 		DOC("doc", "D0CF11E0"),
 
-		/**
-		 * MS Access "mdb", "5374616E64617264204A"
-		 */
+		/** MS Access "mdb", "5374616E64617264204A" */
 		MDB("mdb", "5374616E64617264204A"),
 
-		/**
-		 * WordPerfect "wpd", "FF575043"
-		 */
+		/** WordPerfect "wpd", "FF575043" */
 		WPD("wpd", "FF575043"),
 
-		/**
-		 * "eps", "252150532D41646F6265"
-		 */
+		/** "eps", "252150532D41646F6265" */
 		EPS("eps", "252150532D41646F6265"),
 
-		/**
-		 * "ps", "252150532D41646F6265"
-		 */
+		/** "ps", "252150532D41646F6265" */
 		PS("ps", "252150532D41646F6265"),
 
-		/**
-		 * Adobe Acrobat "pdf", "255044462D312E"
-		 */
+		/** Adobe Acrobat "pdf", "255044462D312E" */
 		PDF("pdf", "255044462D312E"),
 
-		/**
-		 * Quicken "qdf", "AC9EBD8F"
-		 */
+		/** Quicken "qdf", "AC9EBD8F" */
 		QDF("qdf", "AC9EBD8F"),
 
-		/**
-		 * Windows Password "pwl", "E3828596"
-		 */
+		/** Windows Password "pwl", "E3828596" */
 		PWL("pwl", "E3828596"),
 
-		/**
-		 * Wave "wav", "57415645"
-		 */
+		/** Wave "wav", "57415645" */
 		WAV("wav", "57415645"),
 
-		/**
-		 * "avi", "41564920"
-		 */
+		/** "avi", "41564920" */
 		AVI("avi", "41564920"),
 
-		/**
-		 * Real Audio "ram", "2E7261FD"
-		 */
+		/** Real Audio "ram", "2E7261FD" */
 		RAM("ram", "2E7261FD"),
 
-		/**
-		 * Real Media "rm", "2E524D46"
-		 */
+		/** Real Media "rm", "2E524D46" */
 		RM("rm", "2E524D46"),
 
-		/**
-		 * "mpg", "000001BA"
-		 */
+		/** "mpg", "000001BA" */
 		MPG("mpg", "000001BA"),
 
-		/**
-		 * Quicktime "mov", "6D6F6F76"
-		 */
+		/** Quicktime "mov", "6D6F6F76" */
 		MOV("mov", "6D6F6F76"),
 
-		/**
-		 * Windows Media "asf", "3026B2758E66CF11"
-		 */
+		/** Windows Media "asf", "3026B2758E66CF11" */
 		ASF("asf", "3026B2758E66CF11"),
 
-		/**
-		 * MIDI (mid)
-		 */
+		/** MIDI (mid) */
 		MID("mid", "4D546864");
 
 		private String                       name;
@@ -212,46 +142,135 @@ public class FileUtil {
 			this.hexCode = hexCode;
 		}
 
+		public String getHexCode() {
+			return hexCode;
+		}
+
 		public String getName() {
 			return name;
 		}
+	}
 
-		public String getHexCode() {
-			return hexCode;
+	public final static Map<String, String> FILE_TYPE_MAP = new HashMap<String, String>();
+
+	static final int                        BUFFER        = 2048;
+
+	public static int batchCopy(List<String> sourceList, String dstdir, boolean overwrite) throws IOException {
+		File dir = new File(dstdir);
+		if (!dir.exists()) {
+			FileUtil.mkdirsOfDirectory(dir);
+		}
+		int copySum = 0;
+		for (String sourceFile : sourceList) {
+			File file = new File(sourceFile);
+			File dstFile = new File(dstdir + "/" + FileUtil.getName(file));
+			if (!file.exists()) {
+				continue;
+			}
+			if (dstFile.exists() && !overwrite) {
+				continue;
+			}
+			if (FileUtil.copyFile(file, dstFile)) {
+				copySum++;
+			}
+		}
+
+		return copySum;
+	}
+
+	public static int batchCopy(List<String> fileList, String sourceDir, String dstDir, boolean overwrite) throws IOException {
+		int copySum = 0;
+		for (String file : fileList) {
+			File sourceFile = new File(sourceDir + file);
+			File dstFile = new File(dstDir + file);
+			if (!sourceFile.exists()) {
+				continue;
+			}
+			if (dstFile.exists() && !overwrite) {
+				continue;
+			}
+			FileUtil.mkdirsOfFile(dstFile);
+			if (FileUtil.copyFile(sourceFile, dstFile)) {
+				copySum++;
+			}
+		}
+		return copySum;
+	}
+
+	public static boolean copyFile(File sourceFile, File dstFile) throws IOException {
+		FileInputStream in = null;
+		FileOutputStream out = null;
+		try {
+			int length = 2097152;
+			in = new FileInputStream(sourceFile);
+			out = new FileOutputStream(dstFile);
+			FileChannel inC = in.getChannel();
+			FileChannel outC = out.getChannel();
+			ByteBuffer b = null;
+			while (true) {
+				if (inC.position() == inC.size()) {
+					inC.close();
+					outC.close();
+					return true;
+				}
+				if ((inC.size() - inC.position()) < length) {
+					length = (int) (inC.size() - inC.position());
+				} else {
+					length = 2097152;
+				}
+				b = ByteBuffer.allocateDirect(length);
+				inC.read(b);
+				b.flip();
+				outC.write(b);
+				outC.force(false);
+			}
+		}
+		finally {
+			if (null != in) {
+				in.close();
+			}
+			if (null != out) {
+				out.close();
+			}
 		}
 	}
 
 	/**
-	 * 获取文件类型,包括图片,若格式不是已配置的,则返回null
-	 * @param file
-	 * @return
+	 * @see #createZipFile(File, new File(directory.toString()+".zip"))
 	 */
-	public static String getFileType(File file) {
-		String filetype = null;
-		byte[] b = new byte[50];
-		InputStream is = null;
-		try {
-			is = new FileInputStream(file);
-			is.read(b);
+	public static File createZipFile(File directory) throws IOException {
+		return createZipFile(directory, new File(directory.toString() + ".zip"));
+	}
 
-			filetype = getFileType(b);
-		}
-		catch (Exception e) {
-			log.error(e.getMessage(), e);
+	/**
+	 * create ZIP compressed file.
+	 * @param directory Be want to be compressed directory.
+	 * @param zipFile Be appointed file which ZIP compressed.
+	 * @return from parameter of zipFile.
+	 * @throws IOException
+	 */
+	public static File createZipFile(File directory, File zipFile) throws IOException {
+		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(zipFile));
+		ZipOutputStream out = new ZipOutputStream(bos);
 
-			return null;
-		}
-		finally {
-			if (null != is) {
-				try {
-					is.close();
-				}
-				catch (IOException e) {
-					// do nothing.
-				}
-			}
-		}
-		return filetype;
+		put(directory, out, "");
+		out.close();
+
+		return zipFile;
+	}
+
+	/**
+	 * @see #createZipFile(File, File)
+	 */
+	public static File createZipFile(String directory) throws IOException {
+		return createZipFile(new File(directory));
+	}
+
+	/**
+	 * @see #createZipFile(new File(directory),new File(zipFileNameNoSuffix + ".zip"))
+	 */
+	public static File createZipFile(String directory, String zipFileNameNoSuffix) throws IOException {
+		return createZipFile(new File(directory), new File(zipFileNameNoSuffix + ".zip"));
 	}
 
 	/**
@@ -273,28 +292,27 @@ public class FileUtil {
 	}
 
 	/**
-	 * @see #getSuffix(String)
+	 * 获取文件类型,包括图片,若格式不是已配置的,则返回null
+	 * @param file
+	 * @return
+	 * @throws IOException
 	 */
-	public static String getSuffix(File file) {
-		String fileName = getName(file);
-		int lastIndex = fileName.lastIndexOf('.');
-		if (-1 == lastIndex) {
-			return null;
-		} else {
-			return fileName.substring(lastIndex);
-		}
-	}
+	public static String getFileType(File file) throws IOException {
+		String filetype = null;
+		byte[] b = new byte[50];
+		InputStream is = null;
+		try {
+			is = new FileInputStream(file);
+			is.read(b);
 
-	/**
-	 * get file's suffix.
-	 * @param file The file.
-	 * @return suffix
-	 */
-	public static String getSuffix(String file) {
-		if (null == file) {
-			return null;
+			filetype = getFileType(b);
 		}
-		return getSuffix(new File(file));
+		finally {
+			if (null != is) {
+				is.close();
+			}
+		}
+		return filetype;
 	}
 
 	/**
@@ -342,18 +360,37 @@ public class FileUtil {
 	}
 
 	/**
-	 * Create a file's directory path recursive.
-	 * @param file The File.
+	 * @see #getSuffix(String)
 	 */
-	public static void mkdirsOfFile(File file) {
-		file.getParentFile().mkdirs();
+	public static String getSuffix(File file) {
+		String fileName = getName(file);
+		int lastIndex = fileName.lastIndexOf('.');
+		if (-1 == lastIndex) {
+			return null;
+		} else {
+			return fileName.substring(lastIndex);
+		}
 	}
 
 	/**
-	 * @see #mkdirsOfFile(File)
+	 * get file's suffix.
+	 * @param file The file.
+	 * @return suffix
 	 */
-	public static void mkdirsOfFile(String file) {
-		mkdirsOfFile(new File(file));
+	public static String getSuffix(String file) {
+		if (null == file) {
+			return null;
+		}
+		return getSuffix(new File(file));
+	}
+
+	/**
+	 * 判断文件是否存在
+	 * @param fileName
+	 * @return
+	 */
+	public static boolean isFileExists(String fileName) {
+		return (new File(fileName).exists());
 	}
 
 	/**
@@ -371,53 +408,19 @@ public class FileUtil {
 		mkdirsOfDirectory(new File(directory));
 	}
 
-	static final int BUFFER = 2048;
-
 	/**
-	 * @see #createZipFile(File, File)
+	 * Create a file's directory path recursive.
+	 * @param file The File.
 	 */
-	public static File createZipFile(String directory) throws IOException {
-		return createZipFile(new File(directory));
+	public static void mkdirsOfFile(File file) {
+		file.getParentFile().mkdirs();
 	}
 
 	/**
-	 * @see #createZipFile(File, new File(directory.toString()+".zip"))
+	 * @see #mkdirsOfFile(File)
 	 */
-	public static File createZipFile(File directory) throws IOException {
-		return createZipFile(directory, new File(directory.toString() + ".zip"));
-	}
-
-	/**
-	 * @see #createZipFile(new File(directory),new File(zipFileNameNoSuffix + ".zip"))
-	 */
-	public static File createZipFile(String directory, String zipFileNameNoSuffix) throws IOException {
-		return createZipFile(new File(directory), new File(zipFileNameNoSuffix + ".zip"));
-	}
-
-	/**
-	 * create ZIP compressed file.
-	 * @param directory Be want to be compressed directory.
-	 * @param zipFile Be appointed file which ZIP compressed.
-	 * @return from parameter of zipFile.
-	 * @throws IOException
-	 */
-	public static File createZipFile(File directory, File zipFile) throws IOException {
-		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(zipFile));
-		ZipOutputStream out = new ZipOutputStream(bos);
-
-		put(directory, out, "");
-		out.close();
-
-		return zipFile;
-	}
-
-	/**
-	 * 判断文件是否存在
-	 * @param fileName
-	 * @return
-	 */
-	public static boolean isFileExists(String fileName) {
-		return (new File(fileName).exists());
+	public static void mkdirsOfFile(String file) {
+		mkdirsOfFile(new File(file));
 	}
 
 	private static void put(File f, ZipOutputStream out, String dir) throws IOException {
@@ -440,86 +443,6 @@ public class FileUtil {
 			}
 			origin.close();
 		}
-	}
-
-	public static boolean copyFile(File sourceFile, File dstFile) throws IOException {
-		FileInputStream in = null;
-		FileOutputStream out = null;
-		try {
-			int length = 2097152;
-			in = new FileInputStream(sourceFile);
-			out = new FileOutputStream(dstFile);
-			FileChannel inC = in.getChannel();
-			FileChannel outC = out.getChannel();
-			ByteBuffer b = null;
-			while (true) {
-				if (inC.position() == inC.size()) {
-					inC.close();
-					outC.close();
-					return true;
-				}
-				if ((inC.size() - inC.position()) < length) {
-					length = (int) (inC.size() - inC.position());
-				} else {
-					length = 2097152;
-				}
-				b = ByteBuffer.allocateDirect(length);
-				inC.read(b);
-				b.flip();
-				outC.write(b);
-				outC.force(false);
-			}
-		}
-		finally {
-			if (null != in) {
-				in.close();
-			}
-			if (null != out) {
-				out.close();
-			}
-		}
-	}
-
-	public static int batchCopy(List<String> sourceList, String dstdir, boolean overwrite) throws IOException {
-		File dir = new File(dstdir);
-		if (!dir.exists()) {
-			FileUtil.mkdirsOfDirectory(dir);
-		}
-		int copySum = 0;
-		for (String sourceFile : sourceList) {
-			File file = new File(sourceFile);
-			File dstFile = new File(dstdir + "/" + FileUtil.getName(file));
-			if (!file.exists()) {
-				continue;
-			}
-			if (dstFile.exists() && !overwrite) {
-				continue;
-			}
-			if (FileUtil.copyFile(file, dstFile)) {
-				copySum++;
-			}
-		}
-
-		return copySum;
-	}
-
-	public static int batchCopy(List<String> fileList, String sourceDir, String dstDir, boolean overwrite) throws IOException {
-		int copySum = 0;
-		for (String file : fileList) {
-			File sourceFile = new File(sourceDir + file);
-			File dstFile = new File(dstDir + file);
-			if (!sourceFile.exists()) {
-				continue;
-			}
-			if (dstFile.exists() && !overwrite) {
-				continue;
-			}
-			FileUtil.mkdirsOfFile(dstFile);
-			if (FileUtil.copyFile(sourceFile, dstFile)) {
-				copySum++;
-			}
-		}
-		return copySum;
 	}
 
 }
