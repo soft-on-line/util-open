@@ -12,20 +12,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 读取文件内容的类
  * @author 覃芝鹏
  * @version $Id: ReaderUtil.java,v 1.10 2009/04/24 04:07:59 moon Exp $
  */
 public class ReaderUtil {
-
-	/**
-	 * 写日志.
-	 */
-	private static final Log log = LogFactory.getLog(ReaderUtil.class);
 
 	/**
 	 * 读取一个目录下文件名称
@@ -52,8 +44,9 @@ public class ReaderUtil {
 	 * @param list 用于存储字符窜数组的库
 	 * @param file 一个文件或者一个目录
 	 * @return 递归遍历每个文件后读取到字符串数组库
+	 * @throws IOException
 	 */
-	private static List<String> _read(List<String> list, File file) {
+	private static List<String> _read(List<String> list, File file) throws IOException {
 		// 如果是文件
 		if (file.isFile()) {
 			// 读取文件然后 存入库里面
@@ -102,8 +95,9 @@ public class ReaderUtil {
 	 * 返回 一个目录或一个文件 下面所有文件取得的字符串数组。 例如一个目录下3个文件则返回长度为3的数组 直接传入一个文件则返回1个数组
 	 * @param file 一个目录 或 一个文件
 	 * @return 每个文件的文本字符串数组
+	 * @throws IOException
 	 */
-	public static String[] read(File file) {
+	public static String[] read(File file) throws IOException {
 		List<String> list = new ArrayList<String>();
 
 		list = _read(list, file);
@@ -111,76 +105,13 @@ public class ReaderUtil {
 		return (String[]) list.toArray(new String[list.size()]);
 	}
 
-	public static String read(URL url) throws IOException {
-		InputStream is = url.openStream();
-		try {
-			return read(is, "utf-8");
-		}
-		finally {
-			is.close();
-		}
-	}
-
-	// public static String read(InputStream is)
-	// {
-	// InputStreamReader fr = null;
-	// BufferedReader br = null;
-	// try{
-	// fr = new InputStreamReader(is);
-	// br = new BufferedReader(fr);
-	//
-	// StringBuffer html = new StringBuffer();
-	// String line = br.readLine();
-	// if(line != null)
-	// {
-	// do{
-	// html.append(line);
-	// }while((line=br.readLine()) != null);
-	// }
-	//
-	// return html.toString();
-	// } catch (Exception e) {
-	// log.error("read(...) error!",e);
-	// return null;
-	// }finally{
-	// try{
-	// if(br != null){ br.close(); }
-	// if(fr != null){ fr.close(); }
-	// }catch(Exception e){
-	// log.error("read(...) stream close error!",e);
-	// }
-	// }
-	// }
-
-	public static String read(InputStream in) throws IOException {
-		return read(in, "utf-8");
-	}
-
-	public static String read(InputStream in, String charsetName) throws IOException {
-		return new String(readByte(in), charsetName);
-	}
-
 	/**
 	 * 从指定的文件中读取 文本内容
 	 * @param file 指定的文件
 	 * @return 读取到文本内容
+	 * @throws IOException
 	 */
-	public static String read(String file) {
-		return read(file, (String) null);
-	}
-
-	public static String read(String fileName, String charsetName) {
-		return read(new File(fileName), charsetName);
-	}
-
-	/**
-	 * 从指定的文件中读取 文本内容
-	 * @param file 指定的文件
-	 * @return 读取到文本内容
-	 */
-	public static String read(File file, String charsetName) {
-		log.info("ReaderUtil reader(" + file + ")");
-
+	public static String read(File file, String charsetName) throws IOException {
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
 		InputStreamReader isr = null;
@@ -202,27 +133,80 @@ public class ReaderUtil {
 
 			return tmp.toString();
 		}
-		catch (Exception e) {
-			log.error("ReaderFile reader(" + file + ") error!", e);
-			return null;
+		finally {
+			if (isr != null) {
+				isr.close();
+			}
+
+			if (bis != null) {
+				bis.close();
+			}
+
+			if (fis != null) {
+				fis.close();
+			}
+		}
+	}
+
+	/**
+	 * 从输入流中读取出字符串
+	 * @param in
+	 * @return
+	 * @throws IOException
+	 */
+	public static String read(InputStream in) throws IOException {
+		return read(in, (String) null);
+	}
+
+	/**
+	 * 从输入流中读取指定编码的字符串
+	 * @param in
+	 * @param charsetName
+	 * @return
+	 * @throws IOException
+	 */
+	public static String read(InputStream in, String charsetName) throws IOException {
+		if (null == charsetName) {
+			return new String(readByte(in));
+		}
+
+		return new String(readByte(in), charsetName);
+	}
+
+	/**
+	 * 从指定的文件中读取 文本内容
+	 * @param file 指定的文件
+	 * @return 读取到文本内容
+	 * @throws IOException
+	 */
+	public static String read(String fileName) throws IOException {
+		return read(fileName, (String) null);
+	}
+
+	/**
+	 * 从文件中读取指定编码的字符串
+	 * @param fileName
+	 * @param charsetName
+	 * @return
+	 * @throws IOException
+	 */
+	public static String read(String fileName, String charsetName) throws IOException {
+		return read(new File(fileName), charsetName);
+	}
+
+	/**
+	 * 从一个URL地址中读取字符串
+	 * @param url
+	 * @return
+	 * @throws IOException
+	 */
+	public static String read(URL url) throws IOException {
+		InputStream is = url.openStream();
+		try {
+			return read(is);
 		}
 		finally {
-			try {
-				if (isr != null) {
-					isr.close();
-				}
-
-				if (bis != null) {
-					bis.close();
-				}
-
-				if (fis != null) {
-					fis.close();
-				}
-			}
-			catch (Exception e) {
-				log.error("ReaderFile reader(" + file + ") close error!", e);
-			}
+			is.close();
 		}
 	}
 
@@ -230,8 +214,9 @@ public class ReaderUtil {
 	 * 从指定的文件中读取二进制流
 	 * @param file 指定的文件
 	 * @return byte[] 二进制流
+	 * @throws IOException
 	 */
-	public static byte[] readByte(File file) {
+	public static byte[] readByte(File file) throws IOException {
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(file);
@@ -257,23 +242,19 @@ public class ReaderUtil {
 
 			return data;
 		}
-		catch (Exception e) {
-			log.error(e);
-			return null;
-		}
 		finally {
 			if (null != fis) {
-				try {
-					fis.close();
-				}
-				catch (IOException e) {
-					log.error(e);
-					return null;
-				}
+				fis.close();
 			}
 		}
 	}
 
+	/**
+	 * 从输入流中读取字节流
+	 * @param in
+	 * @return
+	 * @throws IOException
+	 */
 	public static byte[] readByte(InputStream in) throws IOException {
 		if (null == in) {
 			throw new NullPointerException("input stream is null!");
@@ -297,152 +278,10 @@ public class ReaderUtil {
 	 * 从指定的文件中读取二进制流
 	 * @param file 指定的文件
 	 * @return byte[] 二进制流
+	 * @throws IOException
 	 */
-	public static byte[] readByte(String file) {
+	public static byte[] readByte(String file) throws IOException {
 		return readByte(new File(file));
 	}
-
-	/**
-	 * 从指定的文件中读取 文本内容
-	 * @param file 指定的文件
-	 * @param charset 字符集
-	 * @return 读取到文本内容
-	 */
-	// public static String read(String file,String charset)
-	// {
-	// FileInputStream fis = null;
-	// BufferedInputStream bis = null;
-	// try{
-	// fis = new FileInputStream(file);
-	// bis = new BufferedInputStream(fis);
-	//
-	// byte data[] = new byte[10240];
-	// int count = 0;
-	// int word = -1;
-	// while ((word = bis.read()) != -1)
-	// {
-	// if (count == data.length){
-	// data = ByteUtil.arraycopy(data);
-	// }
-	// data[count++] = (byte) word;
-	// }
-	//
-	// return new String(new String(data, 0, count).getBytes(),charset);
-	// } catch (Exception e) {
-	// log.error("ReaderFile reader("+file+") error!",e);
-	// return null;
-	// }finally{
-	// try{
-	// if(bis != null){
-	// bis.close();
-	// }
-	//
-	// if(fis != null){
-	// fis.close();
-	// }
-	// }catch(Exception e){
-	// log.error("ReaderFile reader("+file+") close error!",e);
-	// }
-	// }
-	// }
-
-	// /**
-	// * @deprecated
-	// * @see #read(File)
-	// */
-	// public static String[] reader(File file) {
-	// return read(file);
-	// }
-	//
-	// /**
-	// * @deprecated
-	// * @see #read(String)
-	// */
-	// public static String reader(String file) {
-	// return read(file);
-	// }
-	//
-	// /**
-	// * @deprecated
-	// * @see #read(String, String)
-	// */
-	// public static String reader(String file, String charset) {
-	// return read(file, charset);
-	// }
-	//
-	// /**
-	// * 从样式为key=value的文本文件中读取至键值库
-	// *
-	// * @param is 文件InputStream(样式为key=value)
-	// * @return 键值对应对库
-	// * @deprecated
-	// */
-	// public static Properties readLineToProperties(InputStream is) {
-	// InputStreamReader fr = null;
-	// BufferedReader br = null;
-	// try {
-	// Properties p = new Properties();
-	//
-	// fr = new InputStreamReader(is);
-	// br = new BufferedReader(fr);
-	//
-	// String line = br.readLine();
-	// do {
-	// String[] keyValue = line.split("=");
-	// p.put(keyValue[0].trim(), keyValue[1].trim());
-	// } while ((line = br.readLine()) != null);
-	//
-	// return p;
-	// } catch (Exception e) {
-	// log.error(BeanUtil.getMethodName(e) + "(...) error!", e);
-	//
-	// return new Properties();
-	// } finally {
-	// try {
-	// if (br != null) {
-	// br.close();
-	// }
-	//
-	// if (fr != null) {
-	// fr.close();
-	// }
-	// } catch (Exception e) {
-	// log.error("ReaderFile readToProperties(...) close error!", e);
-	// }
-	// }
-	// }
-
-	// public static String read(String fileName,String charsetName)
-	// {
-	// BufferedReader in = null;
-	// try {
-	// File file = new File(fileName);
-	//
-	// in = new BufferedReader(
-	// new InputStreamReader(
-	// new FileInputStream(file),
-	// charsetName
-	// )
-	// );
-	// StringBuffer buf = new StringBuffer();
-	// String tmp;
-	// while ((tmp = in.readLine()) != null){
-	// buf.append(tmp);
-	// }
-	//
-	// return buf.toString();
-	// }catch(Exception e){
-	// log.error("read("+fileName+","+charsetName+") error!",e);
-	// return null;
-	// }finally{
-	// try{
-	// if(in != null){
-	// in.close();
-	// }
-	// }catch(Exception e){
-	// log.error("read("+fileName+","+charsetName+") error!",e);
-	// }
-	// }
-	// }
 
 }
