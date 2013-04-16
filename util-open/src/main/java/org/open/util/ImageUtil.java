@@ -468,17 +468,19 @@ public class ImageUtil {
 	/**
 	 * @see #resize(File, File, String, int, int, boolean)
 	 */
+	public static void resize(File srcImage, File descImage, int w, int h) throws IOException {
+		ImageUtil.resize(srcImage, descImage, FileUtil.getSuffix(descImage), w, h, false);
+	}
+
+	/**
+	 * @see #resize(File, File, String, int, int, boolean)
+	 */
 	public static void resize(File srcImage, File descImage, int w, int h, boolean zoomOutOnly) throws IOException {
 		ImageUtil.resize(srcImage, descImage, FileUtil.getSuffix(descImage), w, h, zoomOutOnly);
 	}
 
 	/**
-	 * 强制压缩/放大图片到固定的大小
-	 * @param srcImage 原始图片
-	 * @param descImage 缩放后的图片
-	 * @param w 新宽度
-	 * @param h 新高度
-	 * @throws IOException
+	 * @see #resize(File, File, String, int, int, boolean)
 	 */
 	public static void resize(File srcImage, File descImage, String outFormatName, int w, int h) throws IOException {
 		resize(srcImage, descImage, outFormatName, w, h, false);

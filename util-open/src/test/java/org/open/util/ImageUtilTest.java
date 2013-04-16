@@ -37,7 +37,7 @@ public class ImageUtilTest {
 		ImageInfo ii = ImageUtil.getImageInfo(data);
 		System.out.println(ii);
 
-		ImageUtil.resize(file, new File("d://gg.jpg"), "jpg", 800, 1200);
+		ImageUtil.resize(file, new File("d://gg.jpg"), 800, 1200);
 	}
 
 }
