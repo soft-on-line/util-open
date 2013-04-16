@@ -23,10 +23,31 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
 /**
- * 图片处理工具包类
+ * 图片处理工具包类（备注：另外也有一个图片处理类很强大，后期完善可以参考；网址：http://code.google.com/p/thumbnailator/）
  * @author zhipeng.qzp
  */
 public class ImageUtil {
+
+	/**
+	 * 封装了的一张图片信息，包括宽度、高度、图片大小
+	 * @author zhipeng.qzp
+	 */
+	public static class ImageInfo {
+
+		/** 图片宽度,默认-1为出错值 */
+		public int  width  = -1;
+
+		/** 图片高度,默认-1为出错值 */
+		public int  height = -1;
+
+		/** 图片大小，单位：Byte,默认-1为出错值 */
+		public long size   = -1;
+
+		@Override
+		public String toString() {
+			return "ImageInfo [width=" + width + ", height=" + height + ", size=" + size + "]";
+		}
+	}
 
 	/**
 	 * 图片拼装辅助类，可以让一张图片一次性修改其图片信息，例如可以合并另一张图片，原图片插入文字等
@@ -45,6 +66,62 @@ public class ImageUtil {
 			this.dstImage = new BufferedImage(srcImage.getWidth(), srcImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 			g2d = dstImage.createGraphics();
 			g2d.drawImage(srcImage, null, 0, 0);
+		}
+
+		/**
+		 * 计算文字的高度，宽度，让你居中绘画文字
+		 * @param startX
+		 * @param startY
+		 * @param width
+		 * @param height
+		 * @param str
+		 */
+		private void drawStringCenter(int startX, int startY, int width, int height, String str) {
+			FontMetrics fm = g2d.getFontMetrics();
+
+			int x = startX;
+			int y = startY;
+
+			if (width > 0) {
+				int stringWidth = fm.stringWidth(str);
+
+				x += width / 2 - stringWidth / 2;
+			}
+
+			if (height > 0) {
+				int stringAscent = fm.getAscent();
+				int stringDescent = fm.getDescent();
+
+				y += height / 2 + (stringAscent - stringDescent) / 2;
+			}
+
+			g2d.drawString(str, x, y);
+		}
+
+		/**
+		 * 初始化字体和字体颜色
+		 * @param font
+		 * @param fontColor
+		 */
+		private void drawStringInit(Font font, Color fontColor) {
+			//设置背景色
+			//            g2d.setBackground(Color.WHITE);
+
+			//设置字体
+			g2d.setFont(font);
+
+			//设置字体颜色
+			g2d.setColor(fontColor);
+
+			//字体边缘平滑化
+			//            //1.抗锯齿关闭。
+			//            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
+			//            //2.抗锯齿开启。
+			//            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			//            //3.使用TEXT_ANTIALIAS_GASP提示。
+			//            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+			//4.使用TEXT_ANTIALIAS_LCD_HRGB提示
+			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		}
 
 		/**
@@ -135,62 +212,6 @@ public class ImageUtil {
 		}
 
 		/**
-		 * 计算文字的高度，宽度，让你居中绘画文字
-		 * @param startX
-		 * @param startY
-		 * @param width
-		 * @param height
-		 * @param str
-		 */
-		private void drawStringCenter(int startX, int startY, int width, int height, String str) {
-			FontMetrics fm = g2d.getFontMetrics();
-
-			int x = startX;
-			int y = startY;
-
-			if (width > 0) {
-				int stringWidth = fm.stringWidth(str);
-
-				x += width / 2 - stringWidth / 2;
-			}
-
-			if (height > 0) {
-				int stringAscent = fm.getAscent();
-				int stringDescent = fm.getDescent();
-
-				y += height / 2 + (stringAscent - stringDescent) / 2;
-			}
-
-			g2d.drawString(str, x, y);
-		}
-
-		/**
-		 * 初始化字体和字体颜色
-		 * @param font
-		 * @param fontColor
-		 */
-		private void drawStringInit(Font font, Color fontColor) {
-			//设置背景色
-			//            g2d.setBackground(Color.WHITE);
-
-			//设置字体
-			g2d.setFont(font);
-
-			//设置字体颜色
-			g2d.setColor(fontColor);
-
-			//字体边缘平滑化
-			//            //1.抗锯齿关闭。
-			//            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-			//            //2.抗锯齿开启。
-			//            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-			//            //3.使用TEXT_ANTIALIAS_GASP提示。
-			//            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
-			//4.使用TEXT_ANTIALIAS_LCD_HRGB提示
-			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-		}
-
-		/**
 		 * 原始图片中写入文字信息
 		 * @param startPoint
 		 * @param font
@@ -241,126 +262,8 @@ public class ImageUtil {
 		}
 	}
 
-	/**
-	 * 封装了的一张图片信息，包括宽度、高度、图片大小
-	 * @author zhipeng.qzp
-	 */
-	public static class ImageInfo {
-
-		/** 图片宽度,默认-1为出错值 */
-		public int  width  = -1;
-
-		/** 图片高度,默认-1为出错值 */
-		public int  height = -1;
-
-		/** 图片大小，单位：Byte,默认-1为出错值 */
-		public long size   = -1;
-	}
-
-	/**
-	 * @see #resize(File, File, int, int)
-	 */
-	public static void resize(String srcImage, String descImage, int w, int h) throws IOException {
-		resize(srcImage, descImage, w, h, false);
-	}
-
-	/**
-	 * @see #resize(File, File, int, int)
-	 */
-	public static void resize(String srcImage, String descImage, int w, int h, boolean zoomOutOnly) throws IOException {
-		FileInputStream in = null;
-		FileOutputStream out = null;
-		try {
-			in = new FileInputStream(srcImage);
-			out = new FileOutputStream(descImage);
-			_resize(in, out, w, h, zoomOutOnly);
-		}
-		finally {
-			if (out != null) {
-				out.close();
-			}
-			if (in != null) {
-				in.close();
-			}
-		}
-	}
-
-	/**
-	 * 强制压缩/放大图片到固定的大小
-	 * @param srcImage 原始图片
-	 * @param descImage 缩放后的图片
-	 * @param w 新宽度
-	 * @param h 新高度
-	 * @throws IOException
-	 */
-	public static void resize(File srcImage, File descImage, int w, int h) throws IOException {
-		resize(srcImage, descImage, w, h, false);
-	}
-
-	/**
-	 * 强制压缩/放大图片到固定的大小
-	 * @param srcImage 原始图片
-	 * @param descImage 缩放后的图片
-	 * @param w 新宽度
-	 * @param h 新高度
-	 * @throws IOException
-	 */
-	public static void resize(File srcImage, File descImage, int w, int h, boolean zoomOutOnly) throws IOException {
-		FileInputStream in = null;
-		FileOutputStream out = null;
-		try {
-			in = new FileInputStream(srcImage);
-			out = new FileOutputStream(descImage);
-			_resize(in, out, w, h, zoomOutOnly);
-		}
-		finally {
-			if (out != null) {
-				out.close();
-			}
-			if (in != null) {
-				in.close();
-			}
-		}
-	}
-
-	/**
-	 * 强制压缩/放大图片到固定的大小
-	 * @param srcImage 原始图片流
-	 * @param w 新宽度
-	 * @param h 新高度
-	 * @return 缩放后的图片流
-	 * @throws IOException
-	 */
-	public static byte[] resize(byte[] srcImage, int w, int h) throws IOException {
-		return resize(srcImage, w, h, false);
-	}
-
-	/**
-	 * 强制压缩/放大图片到固定的大小
-	 * @param srcImage 原始图片流
-	 * @param w 新宽度
-	 * @param h 新高度
-	 * @return 缩放后的图片流
-	 * @throws IOException
-	 */
-	public static byte[] resize(byte[] srcImage, int w, int h, boolean zoomOutOnly) throws IOException {
-		ByteArrayOutputStream out = null;
-		ByteArrayInputStream in = null;
-		try {
-			out = new ByteArrayOutputStream();
-			in = new ByteArrayInputStream(srcImage);
-			_resize(in, out, w, h, zoomOutOnly);
-			return out.toByteArray();
-		}
-		finally {
-			if (out != null) {
-				out.close();
-			}
-			if (in != null) {
-				in.close();
-			}
-		}
-	}
+	/** 默认图片输出文件格式 */
+	public final static String OUT_FORMAT_NAME = "JPEG";
 
 	/**
 	 * 强制压缩/放大图片到固定的大小
@@ -370,37 +273,59 @@ public class ImageUtil {
 	 * @param h 新高度
 	 * @throws IOException
 	 */
-	private static void _resize(InputStream isImage, OutputStream osImage, int w, int h, boolean zoomOutOnly) throws IOException {
-		try {
-			BufferedImage image = javax.imageio.ImageIO.read(isImage);
-			//得到图片的原始大小， 以便按比例压缩。
-			int imageWidth = image.getWidth(null);
-			int imageHeight = image.getHeight(null);
+	private static void _resize(InputStream isImage, OutputStream osImage, String outFormatName, int w, int h, boolean zoomOutOnly) throws IOException {
+		BufferedImage image = ImageIO.read(isImage);
+		//得到图片的原始大小， 以便按比例压缩。
+		int imageWidth = image.getWidth(null);
+		int imageHeight = image.getHeight(null);
 
-			//只是缩小模式 且 所给长宽比均比原始大时 保持原图片尺寸
-			if (zoomOutOnly && imageWidth < w && imageHeight < h) {
-				h = imageHeight;
-				w = imageWidth;
+		//只是缩小模式 且 所给长宽比均比原始大时 保持原图片尺寸
+		if (zoomOutOnly && imageWidth < w && imageHeight < h) {
+			h = imageHeight;
+			w = imageWidth;
+		} else {
+			//得到合适的压缩大小，按比例。
+			if ((1.0 * imageWidth / imageHeight) > (1.0 * w / h)) {
+				h = (int) Math.round((imageHeight * w * 1.0 / imageWidth));
 			} else {
-				//得到合适的压缩大小，按比例。
-				if ((1.0 * imageWidth / imageHeight) > (1.0 * w / h)) {
-					h = (int) Math.round((imageHeight * w * 1.0 / imageWidth));
-				} else {
-					w = (int) Math.round((imageWidth * h * 1.0 / imageHeight));
-				}
+				w = (int) Math.round((imageWidth * h * 1.0 / imageHeight));
 			}
+		}
 
-			//构建图片对象
-			BufferedImage _image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-			//绘制缩小后的图
-			_image.getGraphics().drawImage(image, 0, 0, w, h, null);
+		//构建图片对象
+		BufferedImage _image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+		//绘制缩小后的图
+		_image.getGraphics().drawImage(image, 0, 0, w, h, null);
 
-			//JPEGCodec.createJPEGEncoder(osImage).encode(_image);
-			ImageIO.write(_image, "JPEG", osImage);
+		//		JPEGCodec.createJPEGEncoder(osImage).encode(_image);
+		ImageIO.write(_image, outFormatName, osImage);
+	}
+
+	/**
+	 * 获取图片文件实际类型,若不是图片则返回null
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
+	public static String getImageFileType(File file) throws IOException {
+		if (!isImage(file)) {
+			return null;
+		}
+
+		ImageInputStream iis = null;
+		try {
+			iis = ImageIO.createImageInputStream(file);
+			Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
+			if (!iter.hasNext()) {
+				return null;
+			}
+			ImageReader reader = iter.next();
+			return reader.getFormatName();
 		}
 		finally {
-			isImage.close();
-			osImage.close();
+			if (null != iis) {
+				iis.close();
+			}
 		}
 	}
 
@@ -433,32 +358,6 @@ public class ImageUtil {
 	 * @param data
 	 * @return
 	 */
-	public static boolean isImage(File file) {
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(file);
-			return isImage(fis);
-		}
-		catch (Exception e) {
-			return false;
-		}
-		finally {
-			if (null != fis) {
-				try {
-					fis.close();
-				}
-				catch (IOException e) {
-					//do nothing.
-				}
-			}
-		}
-	}
-
-	/**
-	 * 判断流是否为图片
-	 * @param data
-	 * @return
-	 */
 	public static boolean isImage(byte[] data) {
 		ByteArrayInputStream bais = null;
 		try {
@@ -472,6 +371,32 @@ public class ImageUtil {
 			if (null != bais) {
 				try {
 					bais.close();
+				}
+				catch (IOException e) {
+					//do nothing.
+				}
+			}
+		}
+	}
+
+	/**
+	 * 判断流是否为图片
+	 * @param data
+	 * @return
+	 */
+	public static boolean isImage(File file) {
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(file);
+			return isImage(fis);
+		}
+		catch (Exception e) {
+			return false;
+		}
+		finally {
+			if (null != fis) {
+				try {
+					fis.close();
 				}
 				catch (IOException e) {
 					//do nothing.
@@ -496,31 +421,107 @@ public class ImageUtil {
 	}
 
 	/**
-	 * 获取图片文件实际类型,若不是图片则返回null
-	 * @param file
-	 * @return
+	 * @see #resize(byte[], String, int, int)
+	 */
+	public static byte[] resize(byte[] srcImage, int w, int h) throws IOException {
+		String outFormatName = FileUtil.getFileType(srcImage);
+		if (null == outFormatName) {
+			outFormatName = OUT_FORMAT_NAME;
+		}
+		return resize(srcImage, outFormatName, w, h, false);
+	}
+
+	/**
+	 * @see #resize(byte[], String, int, int, boolean)
+	 */
+	public static byte[] resize(byte[] srcImage, String outFormatName, int w, int h) throws IOException {
+		return resize(srcImage, outFormatName, w, h, false);
+	}
+
+	/**
+	 * 强制压缩/放大图片到固定的大小
+	 * @param srcImage 原始图片流
+	 * @param w 新宽度
+	 * @param h 新高度
+	 * @return 缩放后的图片流
 	 * @throws IOException
 	 */
-	public static String getImageFileType(File file) throws IOException {
-		if (!isImage(file)) {
-			return null;
-		}
-
-		ImageInputStream iis = null;
+	public static byte[] resize(byte[] srcImage, String outFormatName, int w, int h, boolean zoomOutOnly) throws IOException {
+		ByteArrayOutputStream out = null;
+		ByteArrayInputStream in = null;
 		try {
-			iis = ImageIO.createImageInputStream(file);
-			Iterator<ImageReader> iter = ImageIO.getImageReaders(iis);
-			if (!iter.hasNext()) {
-				return null;
-			}
-			ImageReader reader = iter.next();
-			return reader.getFormatName();
+			out = new ByteArrayOutputStream();
+			in = new ByteArrayInputStream(srcImage);
+			_resize(in, out, outFormatName, w, h, zoomOutOnly);
+			return out.toByteArray();
 		}
 		finally {
-			if (null != iis) {
-				iis.close();
+			if (out != null) {
+				out.close();
+			}
+			if (in != null) {
+				in.close();
 			}
 		}
+	}
+
+	/**
+	 * @see #resize(File, File, String, int, int, boolean)
+	 */
+	public static void resize(File srcImage, File descImage, int w, int h, boolean zoomOutOnly) throws IOException {
+		ImageUtil.resize(srcImage, descImage, FileUtil.getSuffix(descImage), w, h, zoomOutOnly);
+	}
+
+	/**
+	 * 强制压缩/放大图片到固定的大小
+	 * @param srcImage 原始图片
+	 * @param descImage 缩放后的图片
+	 * @param w 新宽度
+	 * @param h 新高度
+	 * @throws IOException
+	 */
+	public static void resize(File srcImage, File descImage, String outFormatName, int w, int h) throws IOException {
+		resize(srcImage, descImage, outFormatName, w, h, false);
+	}
+
+	/**
+	 * 强制压缩/放大图片到固定的大小
+	 * @param srcImage 原始图片
+	 * @param descImage 缩放后的图片
+	 * @param w 新宽度
+	 * @param h 新高度
+	 * @throws IOException
+	 */
+	public static void resize(File srcImage, File descImage, String outFormatName, int w, int h, boolean zoomOutOnly) throws IOException {
+		FileInputStream in = null;
+		FileOutputStream out = null;
+		try {
+			in = new FileInputStream(srcImage);
+			out = new FileOutputStream(descImage);
+			_resize(in, out, outFormatName, w, h, zoomOutOnly);
+		}
+		finally {
+			if (out != null) {
+				out.close();
+			}
+			if (in != null) {
+				in.close();
+			}
+		}
+	}
+
+	/**
+	 * @see #resize(File, File, int, int)
+	 */
+	public static void resize(String srcImage, String descImage, String outFormatName, int w, int h) throws IOException {
+		resize(srcImage, descImage, outFormatName, w, h, false);
+	}
+
+	/**
+	 * @see #resize(File, File, int, int)
+	 */
+	public static void resize(String srcImage, String descImage, String outFormatName, int w, int h, boolean zoomOutOnly) throws IOException {
+		resize(new File(srcImage), new File(descImage), outFormatName, w, h, zoomOutOnly);
 	}
 
 }

@@ -24,6 +24,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.open.util.DateUtil;
+import org.open.util.FileUtil;
 import org.open.util.RandomUtil;
 import org.open.util.RegexpUtil;
 import org.open.util.debug.DebugUtil;
@@ -149,7 +150,7 @@ public class TestJDK {
 		}
 	}
 
-	private static void _testDouble(String testDouble) {
+	public static void _testDouble(String testDouble) {
 		log.info(testDouble + " Regexp:" + RegexpUtil.isMatch(testDouble, "(\\d{1,}\\.\\d{0,2})"));
 		try {
 			// DecimalFormat decimalFormat = new DecimalFormat();
@@ -174,13 +175,56 @@ public class TestJDK {
 		}
 	}
 
-	// @Test
-	public static void testDouble() {
-		_testDouble("879..");
-		_testDouble(".879");
-		_testDouble(".87");
-		_testDouble("0.87");
-		_testDouble("100000000000000000000000000000000000000000000011110.87");
+	@Test
+	public void testDouble() {
+		//		_testDouble("879..");
+		//		_testDouble(".879");
+		//		_testDouble(".87");
+		//		_testDouble("0.87");
+		//		_testDouble("100000000000000000000000000000000000000000000011110.87");
+
+		int time = 18857;
+		int redo = 99977;
+
+		//		System.out.println(0.001 * time);
+		//		System.out.println(0.001 * redo);
+		System.out.println(0.001 * time * redo);
+		System.out.println(0.001 * (time * redo));
+		System.out.println(1.0 * time * redo / 1000);
+
+		BigDecimal a = new BigDecimal(time);
+		BigDecimal b = new BigDecimal(redo);
+		BigDecimal c = a.multiply(b);
+		//		double md = 0.001;
+		float md = 0.001f;
+		System.out.println(new BigDecimal(0.001f));
+		System.out.println(new BigDecimal(0.001));
+		BigDecimal d = new BigDecimal(md);
+		BigDecimal f = c.multiply(d);
+		System.out.println(f);
+		System.out.println(a.multiply(b));
+		System.out.println(a.multiply(b).multiply(d));
+		System.out.println("Real:");
+		System.out.println(a.multiply(b).multiply(new BigDecimal("0.001")));
+
+		int m = 1102342342;
+		int n = 234234234;
+		int k = m * n;
+		long y = 1;
+		long l = m * n;
+		long x = y * m * n;
+		System.out.println(k);
+		System.out.println(l);
+		System.out.println(x);
+
+		System.out.println(666 * 111);
+
+		System.out.println(new BigInteger(String.valueOf(m)).multiply(new BigInteger(String.valueOf(n))));
+
+		System.out.println(new BigDecimal(0.1).toString()); // 0.1000000000000000055511151231257827021181583404541015625
+		System.out.println(new BigDecimal("0.1").toString()); // 0.1
+		System.out.println(new BigDecimal(Double.toString(0.1000000000000000055511151231257827021181583404541015625)).toString()); // 0.1
+		System.out.println(new BigDecimal(Double.toString(0.1)).toString()); // 0.1
 	}
 
 	@Test
@@ -513,6 +557,30 @@ public class TestJDK {
 		// testUUID();
 
 		testName();
+	}
+
+	@Test
+	public void test() {
+		DecimalFormat format = new DecimalFormat();
+
+		format.applyPattern("0.00");
+
+		Float d = Float.valueOf(56.08f);
+
+		System.out.println(format.format(d));
+	}
+
+	@Test
+	public void testFile() throws IOException {
+		File file = new File("d://tt.jpg");
+		System.out.println(file.getName());
+		System.out.println(file.getAbsolutePath());
+		System.out.println(file.getCanonicalPath());
+		System.out.println(file.getParent());
+		System.out.println(file.getPath());
+
+		System.out.println(FileUtil.getNameNoSuffix(file));
+		System.out.println(FileUtil.getSuffix(file));
 	}
 
 }

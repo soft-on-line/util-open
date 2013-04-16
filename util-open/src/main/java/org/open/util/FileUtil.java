@@ -142,6 +142,10 @@ public class FileUtil {
 			this.hexCode = hexCode;
 		}
 
+		public static FileType index(String name) {
+			return pool.get(name);
+		}
+
 		public String getHexCode() {
 			return hexCode;
 		}
@@ -368,7 +372,7 @@ public class FileUtil {
 		if (-1 == lastIndex) {
 			return null;
 		} else {
-			return fileName.substring(lastIndex);
+			return fileName.substring(lastIndex + 1);
 		}
 	}
 

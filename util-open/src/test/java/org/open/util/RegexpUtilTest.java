@@ -2,6 +2,8 @@ package org.open.util;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -74,6 +76,53 @@ public class RegexpUtilTest extends TestCase {
 			// System.out.println(d);
 			System.out.println("map.put(\"" + (++count) + "\", \"" + d + "\");");
 		}
+	}
+
+	@Test
+	public void testRegexp() {
+		String str = "o;ajgoajd123928374oashgdoaijd12346oashdfoahsdf1239346oashdfoa12398347asiohfah1238976876";
+
+		String[] matched;
+		//		matched = RegexpUtil.matchGroups(str, "([^\\d]+)");
+		//		System.out.println(DebugUtil.print(matched));
+		//
+		//		matched = str.split("\\d+");
+		//		System.out.println(DebugUtil.print(matched));
+
+//		matched = RegexpUtil.matchGroups(str, "(((?!123).)+)");
+		matched = RegexpUtil.matchGroups(str, "(^((?!123).)+)");
+		System.out.println(DebugUtil.print(matched));
+
+		matched = str.split("\\d+");
+		System.out.println(DebugUtil.print(matched));
+
+		int count = 100000;
+
+		long st = System.currentTimeMillis();
+		for (int i = 0; i < count; i++) {
+			//			String[] matched = RegexpUtil.matchGroups(str, "(\\d+)");
+			RegexpUtil.matchGroups(str, "([^\\d]+)");
+		}
+		//		String[] matched = RegexpUtil.matchGroups(str, "((.?)^\\d)");
+		//		System.out.println(DebugUtil.print(matched));
+		System.out.println(System.currentTimeMillis() - st);
+
+		st = System.currentTimeMillis();
+		for (int i = 0; i < count; i++) {
+			str.split("\\d+");
+		}
+		System.out.println(System.currentTimeMillis() - st);
+
+		List<String> list = new ArrayList<String>();
+		st = System.currentTimeMillis();
+		for (int i = 0; i < count; i++) {
+			for (int beginIndex = 0, endIndex = 5; endIndex < str.length() - 1; beginIndex += 5, endIndex += 5) {
+				list.add(str.substring(beginIndex, endIndex));
+			}
+		}
+		System.out.println(System.currentTimeMillis() - st);
+
+		//		System.out.println(DebugUtil.print(list));
 	}
 
 }
