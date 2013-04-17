@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -294,8 +295,14 @@ public class ImageUtil {
 
 		//构建图片对象
 		BufferedImage _image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-		//绘制缩小后的图
-		_image.getGraphics().drawImage(image, 0, 0, w, h, null);
+
+		//绘制缩小后的图（平滑处理优先）
+		_image.getGraphics().drawImage(image.getScaledInstance(w, h, Image.SCALE_SMOOTH), 0, 0, w, h, null);
+		//		image.SCALE_SMOOTH //平滑优先
+		//		image.SCALE_FAST//速度优先
+		//		image.SCALE_AREA_AVERAGING //区域均值
+		//		image.SCALE_REPLICATE //像素复制型缩放
+		//		image.SCALE_DEFAULT //默认缩放模式
 
 		//		JPEGCodec.createJPEGEncoder(osImage).encode(_image);
 		ImageIO.write(_image, outFormatName, osImage);
