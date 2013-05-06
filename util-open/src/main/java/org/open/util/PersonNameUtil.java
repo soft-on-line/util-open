@@ -265,10 +265,6 @@ public class PersonNameUtil {
 	 * @return
 	 */
 	public static List<PersonName> parse(String srcName) {
-		if (null != srcName && srcName.toLowerCase().contains("mcg")) {
-			System.out.println("Danny Cannon");
-		}
-
 		List<PersonName> personNames = parseEspecial(srcName);
 
 		//特殊匹配成功则直接返回

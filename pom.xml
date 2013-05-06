@@ -15,8 +15,13 @@
   </repositories>
   -->
     <properties>
-		
-  </properties>
+		<java.version>1.6</java.version>
+		<java.encoding>UTF-8</java.encoding>
+		<spring-version>3.1.1.RELEASE</spring-version>
+		<project.build.sourceEncoding>
+			${java.encoding}
+		</project.build.sourceEncoding>
+	</properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
