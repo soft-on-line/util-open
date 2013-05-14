@@ -28,6 +28,7 @@ import org.open.util.FileUtil;
 import org.open.util.RandomUtil;
 import org.open.util.RegexpUtil;
 import org.open.util.debug.DebugUtil;
+import org.springframework.util.DigestUtils;
 
 public class TestJDK {
 
@@ -315,6 +316,13 @@ public class TestJDK {
 		// System.out.println(listUserName);
 	}
 
+	@Test
+	public void voidTestDigestUtils() {
+		String str = "";
+		str = DigestUtils.md5DigestAsHex(str.getBytes());
+		System.out.println(str);
+	}
+
 	// @Test
 	public strictfp static void testFloat() {
 		DebugUtil.print(0.0f / (1 * -0.5));
@@ -581,6 +589,14 @@ public class TestJDK {
 
 		System.out.println(FileUtil.getNameNoSuffix(file));
 		System.out.println(FileUtil.getSuffix(file));
+	}
+
+	@Test
+	public void test6() {
+		String srcName = "tt    asdfaf";
+		//		String srcName = "tt asdfaf";
+		srcName = srcName.replaceAll("\\s{2,}", " ");
+		System.out.println(srcName);
 	}
 
 }
