@@ -30,7 +30,7 @@ import org.open.util.RegexpUtil;
 import org.open.util.debug.DebugUtil;
 import org.springframework.util.DigestUtils;
 
-public class TestJDK {
+public strictfp class TestJDK {
 
 	private static final Log log = LogFactory.getLog(TestJDK.class);
 
@@ -177,7 +177,7 @@ public class TestJDK {
 	}
 
 	@Test
-	public void testDouble() {
+	public strictfp void testDouble() {
 		//		_testDouble("879..");
 		//		_testDouble(".879");
 		//		_testDouble(".87");

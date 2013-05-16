@@ -22,9 +22,9 @@ public class JsonUtil {
 	 * @param json
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings("unchecked")
 	public static Map<String, Object> toMap(String json) {
-		return _toMap((StringMap) gson.fromJson(json, Object.class));
+		return _toMap((StringMap<Object>) gson.fromJson(json, Object.class));
 	}
 
 	@SuppressWarnings("rawtypes")
